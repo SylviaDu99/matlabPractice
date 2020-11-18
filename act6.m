@@ -1,0 +1,10 @@
+f = @(p) (p(1) - 2)^2 + (p(2) + 1)^2 + 5 * sin(p(1)) * sin(p(2)) + 100;
+p0 = [6;4];
+fgrad = @(p) [2 * (p(1) - 2) + 5 * cos(p(1)) * sin(p(2)); 
+              2 * (p(2) + 1) + 5 * sin(p(1)) * cos(p(2))];
+a = fgrad(p0);
+phi = @(t) p0 - t * fgrad(p0);
+phi(1);
+f_of_phi = @(t) f(phi(t));
+t0 = fminbnd(f_of_phi, 0, 1);
+p1 = phi(t0);
